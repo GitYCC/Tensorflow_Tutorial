@@ -11,11 +11,28 @@ class SimpleLogisticClassification(object):
     def __init__(self,n_features,n_labels,learning_rate=0.5):
         self.n_features = n_features
         self.n_labels = n_labels
-        self.graph = tf.Graph()
-        self.build(learning_rate)
-        self.sess = tf.Session(graph=self.graph)
         
+        self.graph = tf.Graph() # initialize new graph
+        self.build(learning_rate) # building graph
+        self.sess = tf.Session(graph=self.graph) # create session by the graph
+    
+    def structure(self,features,labels):
+        # build neurel network structure and return their predictions and loss
+        
+        # one fully connected layer
+        logits = self.getDenseLayer(features,self.weights['fc1'],self.biases['fc1'])
+        
+        # predictions
+        y_ = tf.nn.softmax(logits)
+        
+        # loss: softmax cross entropy
+        loss = tf.reduce_mean(
+                 tf.nn.softmax_cross_entropy_with_logits(labels=labels,logits=logits))
+
+        return (y_,loss)     
+    
     def build(self,learning_rate):
+        # Building Graph
         with self.graph.as_default():
             ### Input
             self.train_features = tf.placeholder(tf.float32, shape=(None,self.n_features))
@@ -30,9 +47,10 @@ class SimpleLogisticClassification(object):
             } 
             
             ### Optimalization
+            # build neurel network structure and get their predictions and loss
             self.y_,self.loss = self.structure(features=self.train_features,
                                                         labels=self.train_labels)
-            
+            # define training operation
             self.train_op = tf.train.GradientDescentOptimizer(learning_rate).minimize(self.loss)
             
             ### Prediction
@@ -43,17 +61,9 @@ class SimpleLogisticClassification(object):
             
             ### Initialization
             self.init_op = tf.global_variables_initializer()
-            
-    def structure(self,features,labels):
-        logits = self.getDenseLayer(features,self.weights['fc1'],self.biases['fc1'])
-        
-        y_ = tf.nn.softmax(logits)
-        loss = tf.reduce_mean(
-                 tf.nn.softmax_cross_entropy_with_logits(labels=labels,logits=logits))
-
-        return (y_,loss)
     
     def getDenseLayer(self,input_layer,weight,bias,activation=None):
+        # fully connected layer
         x = tf.add(tf.matmul(input_layer,weight),bias)
         if activation:
             x = activation(x)
@@ -67,7 +77,7 @@ class SimpleLogisticClassification(object):
         for epoch in range(epochs):
             print("Epoch %2d/%2d: "%(epoch+1,epochs))
             
-            # batch gradient descent
+            # fully gradient descent
             feed_dict = {self.train_features: X, self.train_labels: y}
             _ = self.sess.run(self.train_op, feed_dict=feed_dict)
             
@@ -104,7 +114,7 @@ class SimpleLogisticClassification(object):
         ndarray = np.array(ndarray)
         if len(ndarray.shape)==1: ndarray = np.reshape(ndarray,(1,ndarray.shape[0]))
         return ndarray
-
+    
 if __name__=="__main__":
     print("Extract MNIST Dataset ...")
     
