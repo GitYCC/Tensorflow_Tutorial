@@ -12,24 +12,12 @@ class SimpleLogisticClassification(object):
         self.n_features = n_features
         self.n_labels = n_labels
         
+        self.weights = None
+        self.biases  = None
+        
         self.graph = tf.Graph() # initialize new graph
         self.build(learning_rate) # building graph
-        self.sess = tf.Session(graph=self.graph) # create session by the graph
-    
-    def structure(self,features,labels):
-        # build neurel network structure and return their predictions and loss
-        
-        # one fully connected layer
-        logits = self.getDenseLayer(features,self.weights['fc1'],self.biases['fc1'])
-        
-        # predictions
-        y_ = tf.nn.softmax(logits)
-        
-        # loss: softmax cross entropy
-        loss = tf.reduce_mean(
-                 tf.nn.softmax_cross_entropy_with_logits(labels=labels,logits=logits))
-
-        return (y_,loss)     
+        self.sess = tf.Session(graph=self.graph) # create session by the graph     
     
     def build(self,learning_rate):
         # Building Graph
@@ -37,14 +25,6 @@ class SimpleLogisticClassification(object):
             ### Input
             self.train_features = tf.placeholder(tf.float32, shape=(None,self.n_features))
             self.train_labels   = tf.placeholder(tf.int32  , shape=(None,self.n_labels))
-            
-            ### Variable
-            self.weights = {
-                'fc1': tf.Variable(tf.truncated_normal( shape=(self.n_features,self.n_labels) )),
-            }
-            self.biases  = {
-                'fc1': tf.Variable(tf.zeros( shape=(self.n_labels) )),
-            } 
             
             ### Optimalization
             # build neurel network structure and get their predictions and loss
@@ -61,6 +41,30 @@ class SimpleLogisticClassification(object):
             
             ### Initialization
             self.init_op = tf.global_variables_initializer()
+            
+    def structure(self,features,labels):
+        # build neurel network structure and return their predictions and loss
+        ### Variable
+        if (not self.weights) or (not self.biases):
+            self.weights = {
+                'fc1': tf.Variable(tf.truncated_normal( shape=(self.n_features,self.n_labels) )),
+            }
+            self.biases  = {
+                'fc1': tf.Variable(tf.zeros( shape=(self.n_labels) )),
+            } 
+            
+        ### Structure   
+        # one fully connected layer
+        logits = self.getDenseLayer(features,self.weights['fc1'],self.biases['fc1'])
+        
+        # predictions
+        y_ = tf.nn.softmax(logits)
+        
+        # loss: softmax cross entropy
+        loss = tf.reduce_mean(
+                 tf.nn.softmax_cross_entropy_with_logits(labels=labels,logits=logits))
+
+        return (y_,loss)
     
     def getDenseLayer(self,input_layer,weight,bias,activation=None):
         # fully connected layer
@@ -114,6 +118,7 @@ class SimpleLogisticClassification(object):
         ndarray = np.array(ndarray)
         if len(ndarray.shape)==1: ndarray = np.reshape(ndarray,(1,ndarray.shape[0]))
         return ndarray
+    
     
 if __name__=="__main__":
     print("Extract MNIST Dataset ...")
