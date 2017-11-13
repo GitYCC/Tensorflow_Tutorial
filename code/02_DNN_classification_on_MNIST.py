@@ -40,9 +40,11 @@ class DNNLogisticClassification(object):
                                                         dropout_ratio=dropout_ratio,
                                                         train=True)
             # regularization loss
-            self.regularization = tf.reduce_mean(
-                                   [tf.nn.l2_loss(w)/tf.size(w,out_type=tf.float32)
-                                        for w in self.weights.values()])
+            self.regularization = tf.reduce_sum(
+                    [tf.nn.l2_loss(w) for w in self.weights.values()]) \
+                    / tf.reduce_sum(
+                     [tf.size(w,out_type=tf.float32) for w in self.weights.values()])
+                
             # total loss
             self.loss = self.original_loss + alpha * self.regularization
             
@@ -53,10 +55,11 @@ class DNNLogisticClassification(object):
             ### Prediction
             self.new_features = tf.placeholder(tf.float32, shape=(None,self.n_features))
             self.new_labels   = tf.placeholder(tf.int32  , shape=(None,self.n_labels))
-            self.new_y_,self.new_loss = self.structure(features=self.new_features,
+            self.new_y_,self.new_original_loss = self.structure(features=self.new_features,
                                                        labels=self.new_labels,
                                                        n_hidden=n_hidden,
                                                        activation=activation) 
+            self.new_loss = self.new_original_loss + alpha * self.regularization
             
             ### Initialization
             self.init_op = tf.global_variables_initializer()
@@ -160,7 +163,7 @@ class DNNLogisticClassification(object):
         ndarray = np.array(ndarray)
         if len(ndarray.shape)==1: ndarray = np.reshape(ndarray,(1,ndarray.shape[0]))
         return ndarray
-
+    
 if __name__=="__main__":
     print("Extract MNIST Dataset ...")
     
