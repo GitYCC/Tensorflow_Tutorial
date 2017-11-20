@@ -6,27 +6,25 @@
 
 本教程網頁版請至個人網站觀看：[http://www.ycc.idv.tw/tag__實作Tensorflow/](http://www.ycc.idv.tw/tag__實作Tensorflow/)
 
-## 篇章簡介
-
-### Ch01 Simple Logistic Classification on MNIST
+## Ch01 Simple Logistic Classification on MNIST
 
 建立一個簡單的單層Neurel Network。
 
 ![Simple Neurel Network](https://raw.githubusercontent.com/GitYCC/Tensorflow_Tutorial/master/img/TensorflowTutorial.002.jpeg)
 
-### Ch02 Build First Deep Neurel Network (DNN)
+## Ch02 Build First Deep Neurel Network (DNN)
 
 開始建立第一個Deep Learning，仔細介紹Deep Learning的重要組成，包括：Hidden Layer、Activation Function、Mini-Batch Gradient Descent、Weight Regularization、Dropout和Optimizer。
 
 ![DNN](https://raw.githubusercontent.com/GitYCC/Tensorflow_Tutorial/master/img/TensorflowTutorial.003.jpeg)
 
-### Ch03 Build First Convolutional Neurel Network (CNN)
+## Ch03 Build First Convolutional Neurel Network (CNN)
 
 介紹影像處理上最廣為人使用的Convolutional Neurel Network，並在最後完成最簡單的CNN架構：LeNet5。
 
 ![CNN](https://raw.githubusercontent.com/GitYCC/Tensorflow_Tutorial/master/img/TensorflowTutorial.006.jpeg)
 
-### Ch04 Autoencoder
+## Ch04 Autoencoder
 
 建立一個DNN的Autoencoder，揭露Embedding Code的神奇效果。
 
@@ -34,7 +32,7 @@
 
 ![Embedding Code](https://raw.githubusercontent.com/GitYCC/Tensorflow_Tutorial/master/img/04_output_9_0.png)
 
-### Ch05 Word2Vec
+## Ch05 Word2Vec
 
 介紹兩種Word2Vec模型：Skip-gram和CBOW，揭露Embedding Vector的神奇效果。
 
