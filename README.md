@@ -40,4 +40,4 @@
 
 ![word2vec](https://raw.githubusercontent.com/GitYCC/Tensorflow_Tutorial/master/img/TensorflowTutorial.008.jpeg)
 
-![[Embedding Vector](https://raw.githubusercontent.com/GitYCC/Tensorflow_Tutorial/master/img/05_output_13_0.png)
+![Embedding Vector](https://raw.githubusercontent.com/GitYCC/Tensorflow_Tutorial/master/img/05_output_13_0.png)
