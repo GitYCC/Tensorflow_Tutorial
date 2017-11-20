@@ -4,7 +4,7 @@
 
 我想完成一套Tensorflow教程，將Deep Learning一些重要的概念一一的點出來，並且使用Tensorflow來實現或驗證這些概念。我希望觀念講解時可以深入淺出，我希望呈現程式碼時可以結構嚴謹，我希望可以完整呈現Tensorflow的實用面。
 
-本教程網頁版請至個人網站觀看：[http://www.ycc.idv.tw/tag__實作Tensorflow/](http://www.ycc.idv.tw/tag__實作Tensorflow/)
+**本教程網頁版請至個人網站觀看：[http://www.ycc.idv.tw/tag__實作Tensorflow/](http://www.ycc.idv.tw/tag__實作Tensorflow/)**
 
 ## Ch01 Simple Logistic Classification on MNIST
 
