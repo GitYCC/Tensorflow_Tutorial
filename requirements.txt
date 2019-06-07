@@ -1,0 +1,61 @@
+# First make sure to update pip:
+#     $ sudo pip install --upgrade pip
+#
+# Then you probably want to work in a virtualenv (optional):
+#     $ sudo pip install --upgrade virtualenv
+# Or if you prefer you can install virtualenv using your favorite packaging
+# system. E.g., in Ubuntu:
+#     $ sudo apt-get update && sudo apt-get install virtualenv
+# Then:
+#     $ cd $my_work_dir
+#     $ virtualenv my_env
+#     $ . my_env/bin/activate
+#
+# Next, optionally uncomment the OpenAI gym lines (see below).
+# If you do, make sure to install the dependencies first.
+# If you are interested in xgboost for high performance Gradient Boosting, you
+# should uncomment the xgboost line (used in the ensemble learning notebook).
+#
+# Then install these requirements:
+#     $ pip install --upgrade -r requirements.txt
+# 
+# Finally, start jupyter:
+#     $ jupyter notebook
+#
+
+
+##### Core scientific packages
+jupyter==1.0.0
+matplotlib==2.2.2
+numpy==1.14.3
+pandas==0.22.0
+scipy==1.1.0
+
+
+##### Machine Learning packages
+scikit-learn==0.19.1
+
+# Optional: the XGBoost library is only used in the ensemble learning chapter.
+#xgboost==0.71
+
+
+##### Deep Learning packages
+
+# Replace tensorflow with tensorflow-gpu if you want GPU support. If so,
+# you need a GPU card with CUDA Compute Capability 3.0 or higher support, and
+# you must install CUDA, cuDNN and more: see tensorflow.org for the detailed
+# installation instructions.
+tensorflow==1.8.0
+#tensorflow-gpu==1.8.0
+
+# Forcing bleach to 1.5 to avoid version incompatibility when installing
+# TensorBoard.
+bleach==1.5.0
+
+Keras==2.1.6
+
+##### Image manipulation
+imageio==2.3.0
+Pillow==5.1.0
+scikit-image==0.13.1
+
