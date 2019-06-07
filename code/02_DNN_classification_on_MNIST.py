@@ -6,6 +6,8 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
+tf.logging.set_verbosity(tf.logging.ERROR)
+
 
 class DNNLogisticClassification:
 

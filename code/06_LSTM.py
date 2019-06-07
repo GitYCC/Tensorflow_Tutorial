@@ -4,11 +4,13 @@ import os
 import random
 import string
 import zipfile
-from six.moves.urllib.request import urlretrieve
+from urllib.request import urlretrieve
 import time
 
 import numpy as np
 import tensorflow as tf
+
+tf.logging.set_verbosity(tf.logging.ERROR)
 
 LETTER_SIZE = len(string.ascii_lowercase) + 1  # [a-z] + ' '
 FIRST_LETTER_ASCII = ord(string.ascii_lowercase[0])

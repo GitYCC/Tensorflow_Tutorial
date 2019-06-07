@@ -9,6 +9,8 @@ from tensorflow.python.framework import ops
 from tensorflow.examples.tutorials.mnist import input_data
 import matplotlib.pyplot as plt
 
+tf.logging.set_verbosity(tf.logging.ERROR)
+
 
 class Autoencoder:
 

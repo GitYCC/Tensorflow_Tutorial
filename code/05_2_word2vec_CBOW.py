@@ -5,10 +5,12 @@ import os
 import zipfile
 import math
 import time
+from urllib.request import urlretrieve
 
-from six.moves.urllib.request import urlretrieve
 import tensorflow as tf
 import numpy as np
+
+tf.logging.set_verbosity(tf.logging.ERROR)
 
 VOCABULARY_SIZE = 100000
 

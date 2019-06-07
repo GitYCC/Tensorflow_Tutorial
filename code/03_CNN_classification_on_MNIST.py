@@ -7,6 +7,8 @@ import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 import matplotlib.pyplot as plt
 
+tf.logging.set_verbosity(tf.logging.ERROR)
+
 
 class CNNLogisticClassification:
 
@@ -132,7 +134,7 @@ class CNNLogisticClassification:
             x = activation(x)
         return x
 
-    def getConv2DLayer(self, nput_layer,
+    def getConv2DLayer(self, input_layer,
                        weight, bias,
                        strides=(1, 1), padding='VALID', activation=None):
         x = tf.add(
