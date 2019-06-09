@@ -56,7 +56,7 @@ class SimpleLogisticClassification:
 
         ### Structure
         # one fully connected layer
-        logits = self.getDenseLayer(features, self.weights['fc1'], self.biases['fc1'])
+        logits = self.get_dense_layer(features, self.weights['fc1'], self.biases['fc1'])
 
         # predictions
         y_ = tf.nn.softmax(logits)
@@ -67,7 +67,7 @@ class SimpleLogisticClassification:
 
         return (y_, loss)
 
-    def getDenseLayer(self, input_layer, weight, bias, activation=None):
+    def get_dense_layer(self, input_layer, weight, bias, activation=None):
         # fully connected layer
         x = tf.add(tf.matmul(input_layer, weight), bias)
         if activation:
