@@ -93,33 +93,33 @@ class CNNLogisticClassification:
             }
 
         ### Structure
-        conv1 = self.getConv2DLayer(pictures,
-                                    self.weights['conv1'], self.biases['conv1'],
-                                    activation=tf.nn.relu)
+        conv1 = self.get_conv_2d_layer(pictures,
+                                       self.weights['conv1'], self.biases['conv1'],
+                                       activation=tf.nn.relu)
         pool2 = tf.nn.max_pool(conv1,
                                ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID')
-        conv3 = self.getConv2DLayer(pool2,
-                                    self.weights['conv3'], self.biases['conv3'],
-                                    activation=tf.nn.relu)
+        conv3 = self.get_conv_2d_layer(pool2,
+                                       self.weights['conv3'], self.biases['conv3'],
+                                       activation=tf.nn.relu)
         pool4 = tf.nn.max_pool(conv3,
                                ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID')
-        fatten5 = self.getFlattenLayer(pool4)
+        fatten5 = self.get_flatten_layer(pool4)
 
         if train:
             fatten5 = tf.nn.dropout(fatten5, keep_prob=1-dropout_ratio[0])
 
-        fc6 = self.getDenseLayer(fatten5,
-                                 self.weights['fc6'], self.biases['fc6'],
-                                 activation=tf.nn.relu)
+        fc6 = self.get_dense_layer(fatten5,
+                                   self.weights['fc6'], self.biases['fc6'],
+                                   activation=tf.nn.relu)
 
         if train:
             fc6 = tf.nn.dropout(fc6, keep_prob=1-dropout_ratio[1])
 
-        fc7 = self.getDenseLayer(fc6,
-                                 self.weights['fc7'], self.biases['fc7'],
-                                 activation=tf.nn.relu)
+        fc7 = self.get_dense_layer(fc6,
+                                   self.weights['fc7'], self.biases['fc7'],
+                                   activation=tf.nn.relu)
 
-        logits = self.getDenseLayer(fc7, self.weights['fc8'], self.biases['fc8'])
+        logits = self.get_dense_layer(fc7, self.weights['fc8'], self.biases['fc8'])
 
         y_ = tf.nn.softmax(logits)
         loss = tf.reduce_mean(
@@ -128,15 +128,15 @@ class CNNLogisticClassification:
 
         return (y_, loss)
 
-    def getDenseLayer(self, input_layer, weight, bias, activation=None):
+    def get_dense_layer(self, input_layer, weight, bias, activation=None):
         x = tf.add(tf.matmul(input_layer, weight), bias)
         if activation:
             x = activation(x)
         return x
 
-    def getConv2DLayer(self, input_layer,
-                       weight, bias,
-                       strides=(1, 1), padding='VALID', activation=None):
+    def get_conv_2d_layer(self, input_layer,
+                          weight, bias,
+                          strides=(1, 1), padding='VALID', activation=None):
         x = tf.add(
               tf.nn.conv2d(input_layer,
                            weight,
@@ -146,7 +146,7 @@ class CNNLogisticClassification:
             x = activation(x)
         return x
 
-    def getFlattenLayer(self, input_layer):
+    def get_flatten_layer(self, input_layer):
         shape = input_layer.get_shape().as_list()
         n = 1
         for s in shape[1:]:

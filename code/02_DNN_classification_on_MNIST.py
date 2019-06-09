@@ -79,13 +79,13 @@ class DNNLogisticClassification:
             }
         ### Structure
         # layer 1
-        fc1 = self.getDenseLayer(features, self.weights['fc1'],
-                                 self.biases['fc1'], activation=activation)
+        fc1 = self.get_dense_layer(features, self.weights['fc1'],
+                                   self.biases['fc1'], activation=activation)
         if train:
             fc1 = tf.nn.dropout(fc1, keep_prob=1-dropout_ratio)
 
         # layer 2
-        logits = self.getDenseLayer(fc1, self.weights['fc2'], self.biases['fc2'])
+        logits = self.get_dense_layer(fc1, self.weights['fc2'], self.biases['fc2'])
 
         y_ = tf.nn.softmax(logits)
 
@@ -94,7 +94,7 @@ class DNNLogisticClassification:
 
         return (y_, loss)
 
-    def getDenseLayer(self, input_layer, weight, bias, activation=None):
+    def get_dense_layer(self, input_layer, weight, bias, activation=None):
         # fully connected layer
         x = tf.add(tf.matmul(input_layer, weight), bias)
         if activation:

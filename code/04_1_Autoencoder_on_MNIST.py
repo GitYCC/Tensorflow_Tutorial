@@ -89,39 +89,39 @@ class Autoencoder:
         ### Structure
         activation = tf.nn.relu
 
-        encoder = self.getDenseLayer(features,
-                                     self.weights['encode1'],
-                                     self.biases['encode1'],
-                                     activation=activation)
+        encoder = self.get_dense_layer(features,
+                                       self.weights['encode1'],
+                                       self.biases['encode1'],
+                                       activation=activation)
 
         for i in range(1, len(n_hidden)-1):
-            encoder = self.getDenseLayer(
+            encoder = self.get_dense_layer(
                 encoder,
                 self.weights['encode{}'.format(i+1)],
                 self.biases['encode{}'.format(i+1)],
                 activation=activation,
             )
 
-        encoder = self.getDenseLayer(
+        encoder = self.get_dense_layer(
             encoder,
             self.weights['encode{}'.format(len(n_hidden))],
             self.biases['encode{}'.format(len(n_hidden))],
         )
 
-        decoder = self.getDenseLayer(encoder,
-                                     self.weights['decode1'],
-                                     self.biases['decode1'],
-                                     activation=activation)
+        decoder = self.get_dense_layer(encoder,
+                                       self.weights['decode1'],
+                                       self.biases['decode1'],
+                                       activation=activation)
 
         for i in range(1, len(n_hidden)-1):
-            decoder = self.getDenseLayer(
+            decoder = self.get_dense_layer(
                 decoder,
                 self.weights['decode{}'.format(i+1)],
                 self.biases['decode{}'.format(i+1)],
                 activation=activation,
             )
 
-        y_ = self.getDenseLayer(
+        y_ = self.get_dense_layer(
             decoder,
             self.weights['decode{}'.format(len(n_hidden))],
             self.biases['decode{}'.format(len(n_hidden))],
@@ -132,7 +132,7 @@ class Autoencoder:
 
         return (y_, loss, encoder)
 
-    def getDenseLayer(self, input_layer, weight, bias, activation=None):
+    def get_dense_layer(self, input_layer, weight, bias, activation=None):
         x = tf.add(tf.matmul(input_layer, weight), bias)
         if activation:
             x = activation(x)
